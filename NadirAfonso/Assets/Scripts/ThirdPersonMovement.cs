@@ -59,7 +59,6 @@ public class ThirdPersonMovement : MonoBehaviour
             verticalVelocity += Mathf.Sqrt(jumpPower * -3.0f * g);
         }
 
-        Debug.Log(verticalVelocity + "     " + animator.GetBool(jmpHash));
         verticalVelocity += g * Time.deltaTime;
         controller.Move(verticalVelocity * Time.deltaTime * Vector3.up);
 
