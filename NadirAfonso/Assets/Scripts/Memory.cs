@@ -5,6 +5,7 @@ using UnityEngine;
 public class Memory : MonoBehaviour
 {
     MemoryPickups controller;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -15,4 +16,5 @@ public class Memory : MonoBehaviour
         controller.memories[controller.currentMem].SetActive(false);
         controller.Activate(++controller.currentMem);
     }
+
 }
