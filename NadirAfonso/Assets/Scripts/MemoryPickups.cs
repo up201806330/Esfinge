@@ -6,6 +6,7 @@ public class MemoryPickups : MonoBehaviour
 {
     public GameObject[] memories;
     public GameObject playerCam;
+    public Indicator indicator;
     public float timeout = 5f;
 
     public int currentMem = 0;
@@ -27,16 +28,23 @@ public class MemoryPickups : MonoBehaviour
     }
 
     public void Activate(int memoryIndex) {
-        if (memoryIndex >= memories.Length) return;
+        if (memoryIndex == memories.Length - 1) {
+            StartCoroutine(indicator.FadeTo(0f, 1.5f));
+            Destroy(indicator, 1.5f);
+        }
         // Sound effect
 
         memories[memoryIndex].SetActive(true);
 
         if (memoryIndex == 1) {
             StartCoroutine(SwitchCameras(memoryIndex));
+            StartCoroutine(indicator.FadeTo(indicator.minAlpha, 1.5f));
             // Switch to track 1
         }
         // Switch music
+
+        // UI indicator update
+        indicator.retarget(memories[memoryIndex].transform);
     }
 
     private IEnumerator SwitchCameras(int memoryIndex) {

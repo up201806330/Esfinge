@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class Memory : MonoBehaviour
 {
-    MemoryPickups father;
+    MemoryPickups controller;
     // Start is called before the first frame update
     void Start()
     {
-        father = GetComponentInParent<MemoryPickups>();
+        controller = GetComponentInParent<MemoryPickups>();
     }
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("HERERER");
-        father.memories[father.currentMem].SetActive(false);
-        father.Activate(++father.currentMem);
+        controller.memories[controller.currentMem].SetActive(false);
+        controller.Activate(++controller.currentMem);
     }
 }
