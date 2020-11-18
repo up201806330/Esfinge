@@ -452,10 +452,10 @@ MonoBehaviour:
   controller: {fileID: 328264703}
   cam: {fileID: 1687258585}
   animator: {fileID: 328264704}
-  speed: 4
+  speed: 2
   turnSmoothTime: 0.1
   gravity: 1
-  runSpeed: 2
+  runSpeed: 4
   jumpPower: 6
 --- !u!136 &328264702
 CapsuleCollider:
@@ -843,7 +843,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524204003}
-  m_LocalRotation: {x: 0.04835181, y: -0.08081347, z: 0.0039249514, w: 0.99554807}
+  m_LocalRotation: {x: 0.048351847, y: -0.08080508, z: 0.003924544, w: 0.9955487}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1999,7 +1999,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1292346651}
-  m_LocalRotation: {x: 0.04029622, y: -0.06818042, z: 0.0027560806, w: 0.9968551}
+  m_LocalRotation: {x: 0.04029622, y: -0.06818046, z: 0.002756082, w: 0.9968551}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2493,7 +2493,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1626795679}
-  m_LocalRotation: {x: -0.01553289, y: 0.8049168, z: 0.021090565, w: 0.5928093}
+  m_LocalRotation: {x: -0.015532891, y: 0.8049168, z: 0.021090565, w: 0.5928093}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -2770,7 +2770,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687258581}
-  m_LocalRotation: {x: 0.047708306, y: -0.07980381, z: 0.003823898, w: 0.9956609}
+  m_LocalRotation: {x: 0.04770834, y: -0.0797961, z: 0.0038235283, w: 0.99566156}
   m_LocalPosition: {x: 0.8638168, y: 5.210746, z: -6.3554473}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -5207,7 +5207,7 @@ SkinnedMeshRenderer:
   m_Materials:
   - {fileID: 6078861540818646930, guid: 1e5d44d1d9ef9ca44a57b4b761e2b977, type: 3}
   - {fileID: 8870885389123691976, guid: 1e5d44d1d9ef9ca44a57b4b761e2b977, type: 3}
-  - {fileID: -1954025358546209572, guid: 1e5d44d1d9ef9ca44a57b4b761e2b977, type: 3}
+  - {fileID: 2100000, guid: d01fd86b9143f084d87a8623dbcdfcd8, type: 2}
   - {fileID: -6896415264455369838, guid: 1e5d44d1d9ef9ca44a57b4b761e2b977, type: 3}
   - {fileID: 5090752425917897449, guid: 1e5d44d1d9ef9ca44a57b4b761e2b977, type: 3}
   m_StaticBatchInfo:
