@@ -38,7 +38,7 @@ public class Indicator : MonoBehaviour
 
         float t = Vector3.Distance(player.position, target.position) / maxDistance;
         cg.alpha = Mathf.Lerp(maxAlpha, minAlpha, t);
-        float lerp = Mathf.Lerp(0.4f, 1f, t);
+        float lerp = Mathf.Lerp(1f, 2.4f, t);
         GetComponent<RectTransform>().localScale = new Vector3(lerp, lerp, 1);
     }
 
