@@ -35,11 +35,12 @@ public class MemoryPickups : MonoBehaviour
     
     private IEnumerator FirstMemTimeout() {
         yield return new WaitForSeconds(timeout);
-        memories[0].SetActive(false);
         Activate(currentMem = 1);
     }
 
     public void Activate(int memoryIndex) {
+        memories[currentMem - 1].SetActive(false);
+
         if (memoryIndex != 1) StartCoroutine(BlinkRoutine());
         if (memoryIndex == memories.Length - 1) {
             StartCoroutine(indicator.FadeTo(0f, 1.5f));

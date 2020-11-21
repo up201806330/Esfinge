@@ -13,7 +13,6 @@ public class Memory : MonoBehaviour
     }
 
     private void OnTriggerEnter(Collider other) {
-        controller.memories[controller.currentMem].SetActive(false);
         controller.Activate(++controller.currentMem);
     }
 
