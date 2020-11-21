@@ -468,7 +468,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158095449}
-  m_LocalRotation: {x: 0.007401357, y: 0.80513036, z: -0.010049565, w: 0.5929667}
+  m_LocalRotation: {x: 0.0074013555, y: 0.80513036, z: -0.010049564, w: 0.5929667}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1119,6 +1119,7 @@ GameObject:
   - component: {fileID: 494153717}
   - component: {fileID: 494153716}
   - component: {fileID: 494153715}
+  - component: {fileID: 494153719}
   m_Layer: 0
   m_Name: Mem4
   m_TagString: Untagged
@@ -1215,6 +1216,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 494153713}
   m_Mesh: {fileID: 0}
+--- !u!114 &494153719
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494153713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b188ae8d456a604ba78c65c66367564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransf: {fileID: 543450653405318160}
+  amplitude: 0.5
+  speed: 1
+  maxDistance: 50
+  minSize: 0.5
+  maxSize: 1.5
 --- !u!1 &524204003
 GameObject:
   m_ObjectHideFlags: 3
@@ -1732,6 +1751,7 @@ GameObject:
   - component: {fileID: 644383765}
   - component: {fileID: 644383764}
   - component: {fileID: 644383763}
+  - component: {fileID: 644383767}
   m_Layer: 0
   m_Name: Mem5
   m_TagString: Untagged
@@ -1828,6 +1848,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 644383761}
   m_Mesh: {fileID: 0}
+--- !u!114 &644383767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 644383761}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b188ae8d456a604ba78c65c66367564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransf: {fileID: 543450653405318160}
+  amplitude: 0.5
+  speed: 1
+  maxDistance: 50
+  minSize: 0.5
+  maxSize: 1.5
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -3614,7 +3652,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1613299701}
-  m_LocalRotation: {x: 0.07648031, y: -0.06803535, z: 0.005230914, w: 0.99473345}
+  m_LocalRotation: {x: 0.07648034, y: -0.06803532, z: 0.0052309134, w: 0.99473345}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -3709,6 +3747,7 @@ GameObject:
   - component: {fileID: 1678955611}
   - component: {fileID: 1678955610}
   - component: {fileID: 1678955609}
+  - component: {fileID: 1678955613}
   m_Layer: 0
   m_Name: Mem6
   m_TagString: Untagged
@@ -3805,6 +3844,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1678955607}
   m_Mesh: {fileID: 0}
+--- !u!114 &1678955613
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678955607}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b188ae8d456a604ba78c65c66367564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransf: {fileID: 543450653405318160}
+  amplitude: 0.5
+  speed: 1
+  maxDistance: 50
+  minSize: 0.5
+  maxSize: 1.5
 --- !u!1 &1687258581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4009,6 +4066,7 @@ GameObject:
   - component: {fileID: 1768930021}
   - component: {fileID: 1768930020}
   - component: {fileID: 1768930019}
+  - component: {fileID: 1768930023}
   m_Layer: 0
   m_Name: Mem3
   m_TagString: Untagged
@@ -4105,6 +4163,24 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1768930017}
   m_Mesh: {fileID: 0}
+--- !u!114 &1768930023
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1768930017}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4b188ae8d456a604ba78c65c66367564, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerTransf: {fileID: 543450653405318160}
+  amplitude: 0.5
+  speed: 1
+  maxDistance: 50
+  minSize: 0.5
+  maxSize: 1.5
 --- !u!1 &1772333892
 GameObject:
   m_ObjectHideFlags: 0
