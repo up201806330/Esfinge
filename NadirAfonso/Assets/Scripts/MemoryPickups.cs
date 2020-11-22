@@ -1,9 +1,13 @@
 ﻿using System.Collections;
 using Cinemachine;
 using UnityEngine;
+using UnityEngine.VFX;
 
 public class MemoryPickups : MonoBehaviour
 {
+    public VisualEffect vfx;
+    float intensity = 0;
+
     public GameObject[] memories;
     public GameObject playerCam;
     public Indicator indicator;
@@ -23,8 +27,8 @@ public class MemoryPickups : MonoBehaviour
 
         playerMat.SetFloat("_Dissolve", 1f);
         eyesMat.SetFloat("_Dissolve", 1f);
-        StartCoroutine(BlinkTo(playerMat, "_Dissolve", 0f, 8f));
-        StartCoroutine(BlinkTo(eyesMat, "_Dissolve", 0f, 8f));
+        StartCoroutine(BlinkTo(playerMat, "_Dissolve", 0f, 300f));
+        StartCoroutine(BlinkTo(eyesMat, "_Dissolve", 0f, 300f));
 
         StartCoroutine(FirstMemTimeout());
     }
@@ -42,9 +46,15 @@ public class MemoryPickups : MonoBehaviour
         memories[currentMem - 1].SetActive(false);
 
         if (memoryIndex != 1) StartCoroutine(BlinkRoutine());
+
         if (memoryIndex == memories.Length - 1) {
             StartCoroutine(indicator.FadeTo(0f, 1.5f));
             Destroy(indicator, 1.5f);
+            StartCoroutine(FadeVFX(0f, 5f));
+        }
+        else {
+            intensity += 0.4f;
+            StartCoroutine(FadeVFX(intensity, 1.5f));
         }
         // Sound effect
 
@@ -87,4 +97,10 @@ public class MemoryPickups : MonoBehaviour
         }
     }
 
+    IEnumerator FadeVFX(float aValue, float aTime) {
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / aTime) {
+            vfx.SetFloat("Intensity", Mathf.Lerp(vfx.GetFloat("Intensity"), aValue, t));
+            yield return null;
+        }
+    }
 }
