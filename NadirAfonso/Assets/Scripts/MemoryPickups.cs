@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.VFX;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public class MemoryPickups : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class MemoryPickups : MonoBehaviour
     float intensity = 0;
 
     public CinemachineFreeLook cam;
+    public GameObject endCam;
     public ThirdPersonMovement movementController;
 
     public GameObject firstObjects;
@@ -23,7 +25,7 @@ public class MemoryPickups : MonoBehaviour
     public GameObject[] memories;
     public GameObject playerCam;
     public Indicator indicator;
-    public float timeout = 1000f;
+    public int timeout = 50;
 
     public int currentMem = 0;
 
@@ -66,7 +68,7 @@ public class MemoryPickups : MonoBehaviour
     
     private IEnumerator FirstMemTimeout() {
         yield return new WaitForSeconds(timeout);
-        Activate(currentMem = 1);
+        if (currentMem == 0) Activate(++currentMem);
     }
 
     public void Activate(int memoryIndex) {
@@ -84,14 +86,17 @@ public class MemoryPickups : MonoBehaviour
             Destroy(indicator, 1.5f);
 
             // Fade out sandstorm
-            StartCoroutine(FadeVFX(0.4f, 5f));
+            StartCoroutine(FadeToWhiteAndOutVFX());
 
             // Deactivate Camera input
             movementController.ToggleControls();
-            movementController.animationStateMachine(false, false, false);
+            movementController.animationStateMachine(false, false, false, false);
 
             // Activate Final objects (pyramid and stuff)
-            finalObjects.SetActive(true);
+            StartCoroutine(WaitAndActivateFinalObjects());
+
+            // Wait and switch to end camera after sand dispersed
+            StartCoroutine(WaitAndSwitchToEndCam());
         }
         else {
             intensity += 0.45f;
@@ -110,6 +115,11 @@ public class MemoryPickups : MonoBehaviour
 
         // UI indicator update
         indicator.retarget(memories[memoryIndex].transform);
+    }
+
+    private IEnumerator WaitAndActivateFinalObjects() {
+        yield return new WaitForSeconds(2f);
+        finalObjects.SetActive(true);
     }
 
     private IEnumerator SwitchCameras(int memoryIndex) {
@@ -145,6 +155,11 @@ public class MemoryPickups : MonoBehaviour
         }
     }
 
+    IEnumerator FadeToWhiteAndOutVFX() {
+        yield return StartCoroutine(FadeVFX(3f, 2f));
+        StartCoroutine(FadeVFX(0f, 8f));
+    }
+
     private IEnumerator FadeOutText(float timeSpeed, TextMeshProUGUI text) {
         text.color = new Color(text.color.r, text.color.g, text.color.b, 1);
         while (text.color.a > 0.0f) {
@@ -160,5 +175,10 @@ public class MemoryPickups : MonoBehaviour
         yield return new WaitForSeconds(5f);
         wasd.CrossFadeAlpha(0f, 5f, false);
         mouse.CrossFadeAlpha(0f, 5f, false);
+    }
+
+    IEnumerator WaitAndSwitchToEndCam() {
+        yield return new WaitForSeconds(8.5f);
+        endCam.SetActive(true);
     }
 }

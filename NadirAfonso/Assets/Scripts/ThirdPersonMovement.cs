@@ -29,6 +29,7 @@ public class ThirdPersonMovement : MonoBehaviour
     int wlkHash;
     int rngHash;
     int jmpHash;
+    int scrtHash;
 
     private void Start() {
         animator = GetComponent<Animator>();
@@ -36,6 +37,7 @@ public class ThirdPersonMovement : MonoBehaviour
         wlkHash = Animator.StringToHash("Walking");
         rngHash = Animator.StringToHash("Running");
         jmpHash = Animator.StringToHash("Jumping");
+        scrtHash = Animator.StringToHash("Secret;)");
     }
 
     public void ToggleControls() {
@@ -63,6 +65,7 @@ public class ThirdPersonMovement : MonoBehaviour
             return;
         }
 
+        bool secret = Input.GetKey(KeyCode.U);
         bool shift = Input.GetKey(KeyCode.LeftShift);
         bool space = Input.GetKeyDown(KeyCode.Space);
         float horizontal = Input.GetAxis("Horizontal");
@@ -88,13 +91,17 @@ public class ThirdPersonMovement : MonoBehaviour
         verticalVelocity += g * Time.deltaTime;
         controller.Move(verticalVelocity * Time.deltaTime * Vector3.up);
 
-        animationStateMachine(direction.magnitude >= 0.1f, shift, space);
+        animationStateMachine(direction.magnitude >= 0.1f, shift, space, secret);
     }
 
-    public void animationStateMachine(bool walkingNow, bool runningNow, bool jumpingNow) {
+    public void animationStateMachine(bool walkingNow, bool runningNow, bool jumpingNow, bool secretNow) {
         bool isWalking = animator.GetBool(wlkHash);
         bool isRunning = animator.GetBool(rngHash);
         bool isJumping = animator.GetBool(jmpHash);
+        bool isSecret = animator.GetBool(scrtHash);
+
+        if (!isSecret && secretNow) animator.SetBool(scrtHash, true);
+        if (isSecret && !secretNow) animator.SetBool(scrtHash, false);
 
         if (!isJumping && jumpingNow) animator.SetBool(jmpHash, true);
 
