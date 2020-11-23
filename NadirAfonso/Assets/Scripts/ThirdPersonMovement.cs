@@ -1,13 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using Cinemachine;
 
 public class ThirdPersonMovement : MonoBehaviour
 {
     public CharacterController controller;
+    public CinemachineFreeLook cinemaCamera;
     public Transform cam;
     public Animator animator;
+
+    public MemoryPickups mems;
+
+    bool controls = false;
+    bool firstTime = true;
 
     public float speed = 3f;
 
@@ -34,9 +38,31 @@ public class ThirdPersonMovement : MonoBehaviour
         jmpHash = Animator.StringToHash("Jumping");
     }
 
+    public void ToggleControls() {
+        if (controls) {
+            controls = false;
+            cinemaCamera.m_YAxis.m_InputAxisName = "";
+            cinemaCamera.m_XAxis.m_InputAxisName = "";
+        }
+        else {
+            controls = true;
+            cinemaCamera.m_YAxis.m_InputAxisName = "Mouse Y";
+            cinemaCamera.m_XAxis.m_InputAxisName = "Mouse X";
+        }
+    }
+
     // Update is called once per frame
     void Update()
     {
+        if (!controls) {
+            if (Input.GetMouseButtonDown(0) && firstTime) {
+                ToggleControls();
+                firstTime = false;
+                mems.StartGame();
+            }
+            return;
+        }
+
         bool shift = Input.GetKey(KeyCode.LeftShift);
         bool space = Input.GetKeyDown(KeyCode.Space);
         float horizontal = Input.GetAxis("Horizontal");
@@ -65,7 +91,7 @@ public class ThirdPersonMovement : MonoBehaviour
         animationStateMachine(direction.magnitude >= 0.1f, shift, space);
     }
 
-    private void animationStateMachine(bool walkingNow, bool runningNow, bool jumpingNow) {
+    public void animationStateMachine(bool walkingNow, bool runningNow, bool jumpingNow) {
         bool isWalking = animator.GetBool(wlkHash);
         bool isRunning = animator.GetBool(rngHash);
         bool isJumping = animator.GetBool(jmpHash);
