@@ -9,8 +9,13 @@ using System;
 public class MemoryPickups : MonoBehaviour
 {
     public Image mainMenu;
+    public Image endScreen;
+    public Image painting;
+    public Image triangle;
+
     public Image wasd;
     public Image mouse;
+    public Image shift;
 
     public VisualEffect vfx;
     float intensity = 0;
@@ -35,6 +40,8 @@ public class MemoryPickups : MonoBehaviour
     public float blinkInTime = 1f;
     public float blinkOutTime = 1f;
 
+    public GameObject mem6;
+
     private void Start() {
         foreach (GameObject mem in memories) mem.SetActive(false);
         memories[0].SetActive(true);
@@ -47,6 +54,14 @@ public class MemoryPickups : MonoBehaviour
 
         wasd.CrossFadeAlpha(0f, 0.001f, false);
         mouse.CrossFadeAlpha(0f, 0.001f, false);
+        shift.CrossFadeAlpha(0f, 0.001f, false);
+
+        endScreen.CrossFadeAlpha(0f, 0.001f, false);
+        painting.CrossFadeAlpha(0f, 0.001f, false);
+        triangle.CrossFadeAlpha(0f, 0.001f, false);
+
+        TextMeshProUGUI[] texts = triangle.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (TextMeshProUGUI text in texts) StartCoroutine(FadeOutText(100f, text));
     }
 
     public void StartGame() { // Called by main menu
@@ -65,14 +80,15 @@ public class MemoryPickups : MonoBehaviour
         // Start timeout to auto activate first memory
         StartCoroutine(FirstMemTimeout());
     }
-    
+
     private IEnumerator FirstMemTimeout() {
         yield return new WaitForSeconds(timeout);
         if (currentMem == 0) Activate(++currentMem);
     }
 
     public void Activate(int memoryIndex) {
-        memories[currentMem - 1].SetActive(false);
+        if (memoryIndex == memories.Length - 1) mem6.SetActive(false);
+        else memories[currentMem - 1].SetActive(false);
 
         if (memoryIndex != 1) StartCoroutine(BlinkRoutine());
 
@@ -97,6 +113,11 @@ public class MemoryPickups : MonoBehaviour
 
             // Wait and switch to end camera after sand dispersed
             StartCoroutine(WaitAndSwitchToEndCam());
+
+            // Wait until camera reaches final position, then fade in white and then painting
+            //CinemachineDollyCart dolly = endCam.GetComponent<CinemachineDollyCart>();
+            TextMeshProUGUI[] texts = triangle.GetComponentsInChildren<TextMeshProUGUI>();
+            StartCoroutine(FadeWhiteAndPainting(texts));
         }
         else {
             intensity += 0.45f;
@@ -168,17 +189,42 @@ public class MemoryPickups : MonoBehaviour
         }
     }
 
+    private IEnumerator FadeInText(float timeSpeed, TextMeshProUGUI text) {
+        text.color = new Color(text.color.r, text.color.g, text.color.b, 0);
+        while (text.color.a < 1.0f) {
+            text.color = new Color(text.color.r, text.color.g, text.color.b, text.color.a + (Time.deltaTime * timeSpeed));
+            yield return null;
+        }
+    }
+
     private IEnumerator FadeUIControls() {
         yield return new WaitForSeconds(2f);
         wasd.CrossFadeAlpha(1f, 1f, false);
         mouse.CrossFadeAlpha(1f, 1f, false);
+        shift.CrossFadeAlpha(1f, 1f, false);
         yield return new WaitForSeconds(5f);
         wasd.CrossFadeAlpha(0f, 5f, false);
         mouse.CrossFadeAlpha(0f, 5f, false);
+        shift.CrossFadeAlpha(0f, 5f, false);
     }
 
     IEnumerator WaitAndSwitchToEndCam() {
-        yield return new WaitForSeconds(8.5f);
+        yield return new WaitForSeconds(7.5f);
         endCam.SetActive(true);
+    }
+
+    private IEnumerator FadeWhiteAndPainting(TextMeshProUGUI[] texts) {
+        yield return new WaitForSeconds(28.5f);
+        Debug.Log("On position");
+        yield return StartCoroutine(FadeWhite());
+        Debug.Log("Fading painting in");
+        painting.CrossFadeAlpha(1f, 2f, false);
+        triangle.CrossFadeAlpha(1f, 2f, false);
+        foreach (TextMeshProUGUI text in texts) StartCoroutine(FadeInText(2f, text));
+    }
+
+    private IEnumerator FadeWhite() {
+        endScreen.CrossFadeAlpha(1f, 2f, false);
+        yield return new WaitForSeconds(2f);
     }
 }

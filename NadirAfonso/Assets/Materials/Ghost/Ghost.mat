@@ -54,11 +54,11 @@ Material:
     - Vector1_D2E9EB48: 0
     - _AlphaClip: 0
     - _Blend: 0
-    - _Blink: 0.0000000011958516
+    - _Blink: 0
     - _BumpScale: 1
     - _Cull: 2
     - _Cutoff: 0.5
-    - _Dissolve: 0
+    - _Dissolve: 1
     - _DstBlend: 0
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
