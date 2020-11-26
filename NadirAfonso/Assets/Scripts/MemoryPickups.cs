@@ -8,6 +8,9 @@ using System;
 
 public class MemoryPickups : MonoBehaviour
 {
+    SoundManager soundManager;
+    int currentMusic = 0;
+
     public Image mainMenu;
     public Image endScreen;
     public Image painting;
@@ -43,6 +46,8 @@ public class MemoryPickups : MonoBehaviour
     public GameObject mem6;
 
     private void Start() {
+        soundManager = GetComponent<SoundManager>();
+
         foreach (GameObject mem in memories) mem.SetActive(false);
         memories[0].SetActive(true);
 
@@ -65,6 +70,9 @@ public class MemoryPickups : MonoBehaviour
     }
 
     public void StartGame() { // Called by main menu
+        // Switch music
+        soundManager.changeMusic(++currentMusic);
+
         // Fade out main menu
         mainMenu.CrossFadeAlpha(0f, 2f, false);
         TextMeshProUGUI[] texts = mainMenu.GetComponentsInChildren<TextMeshProUGUI>();
@@ -87,11 +95,25 @@ public class MemoryPickups : MonoBehaviour
     }
 
     public void Activate(int memoryIndex) {
-        if (memoryIndex == memories.Length - 1) mem6.SetActive(false);
-        else memories[currentMem - 1].SetActive(false);
+        if (memoryIndex == memories.Length - 1) {
+            // Avoids disappearing of obelisk
+            mem6.SetActive(false);
 
+            // Plays reverbed flutes instead of normal sound
+            soundManager.playSFX(1);
+        }
+        else {
+            // Deactivates memory before it
+            memories[currentMem - 1].SetActive(false);
+
+            // Plays normal pickup sound
+            soundManager.playSFX(0);
+        }
+
+        // Won't blink player if it's first memory
         if (memoryIndex != 1) StartCoroutine(BlinkRoutine());
 
+        // Show obelisk
         if (memoryIndex == memories.Length - 2) {
             firstObjects.SetActive(true);
         }
@@ -120,10 +142,10 @@ public class MemoryPickups : MonoBehaviour
             StartCoroutine(FadeWhiteAndPainting(texts));
         }
         else {
+            // Increase sandstorm intensity
             intensity += 0.45f;
             StartCoroutine(FadeVFX(intensity, 1.5f));
         }
-        // Sound effect
 
         memories[memoryIndex].SetActive(true);
 
@@ -133,6 +155,7 @@ public class MemoryPickups : MonoBehaviour
             // Switch to track 1
         }
         // Switch music
+        soundManager.changeMusic(++currentMusic);
 
         // UI indicator update
         indicator.retarget(memories[memoryIndex].transform);
@@ -211,6 +234,7 @@ public class MemoryPickups : MonoBehaviour
     IEnumerator WaitAndSwitchToEndCam() {
         yield return new WaitForSeconds(7.5f);
         endCam.SetActive(true);
+        soundManager.changeMusic(++currentMusic);
     }
 
     private IEnumerator FadeWhiteAndPainting(TextMeshProUGUI[] texts) {
