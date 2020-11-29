@@ -119,12 +119,11 @@ public class MemoryPickups : MonoBehaviour
         }
 
         if (memoryIndex == memories.Length - 1) {
-            // Fade and destroy UI indicator
-            StartCoroutine(indicator.FadeTo(0f, 1.5f));
-            Destroy(indicator, 1.5f);
-
             // Fade out sandstorm
             StartCoroutine(FadeToWhiteAndOutVFX());
+
+            // Fade out UI indicator
+            indicator.gameObject.SetActive(false);
 
             // Deactivate Camera input
             movementController.ToggleControls();
@@ -149,10 +148,14 @@ public class MemoryPickups : MonoBehaviour
 
         memories[memoryIndex].SetActive(true);
 
+        // First visual memory, fade indicator in
         if (memoryIndex == 1) {
-            StartCoroutine(SwitchCameras(memoryIndex));
             StartCoroutine(indicator.FadeTo(indicator.minAlpha, 1.5f));
-            // Switch to track 1
+        }
+
+        // If memories have attached cameras
+        if (memoryIndex == 1 || memoryIndex == 5) {
+            StartCoroutine(SwitchCameras(memoryIndex));
         }
         // Switch music
         soundManager.changeMusic(++currentMusic);
@@ -239,9 +242,7 @@ public class MemoryPickups : MonoBehaviour
 
     private IEnumerator FadeWhiteAndPainting(TextMeshProUGUI[] texts) {
         yield return new WaitForSeconds(28.5f);
-        Debug.Log("On position");
         yield return StartCoroutine(FadeWhite());
-        Debug.Log("Fading painting in");
         painting.CrossFadeAlpha(1f, 2f, false);
         triangle.CrossFadeAlpha(1f, 2f, false);
         foreach (TextMeshProUGUI text in texts) StartCoroutine(FadeInText(2f, text));

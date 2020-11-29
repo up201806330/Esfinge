@@ -10,6 +10,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public MemoryPickups mems;
 
+    AudioSource audioSource;
+    public AudioClip[] steps;
+
     bool controls = false;
     bool firstTime = true;
 
@@ -33,6 +36,7 @@ public class ThirdPersonMovement : MonoBehaviour
 
     private void Start() {
         animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
 
         wlkHash = Animator.StringToHash("Walking");
         rngHash = Animator.StringToHash("Running");
@@ -56,6 +60,9 @@ public class ThirdPersonMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+
         if (!controls) {
             if (Input.GetMouseButtonDown(0) && firstTime) {
                 ToggleControls();
@@ -114,5 +121,9 @@ public class ThirdPersonMovement : MonoBehaviour
 
     public void endRunningAnim() {
         animator.SetBool(jmpHash, false);
+    }
+
+    public void step() {
+        audioSource.PlayOneShot(steps[Random.Range(0, steps.Length - 1)]);
     }
 }
